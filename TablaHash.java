@@ -19,10 +19,12 @@ class TablaHash {
     public void insertar(String clave, Jugador jugador) {
         int pos = hash(clave);
 
+        // Buscar siguiente espacio disponible usando direccionamiento lineal
         while (tabla[pos] != null && tabla[pos].activa && !tabla[pos].llave.equals(clave)) {
             pos = (pos + 1) % capacidad;
         }
 
+        // Guardar entrada
         tabla[pos] = new EntradaHash(clave, jugador);
         tamaño++;
     }
@@ -30,9 +32,11 @@ class TablaHash {
     public Jugador obtener(String clave) {
         int pos = hash(clave);
 
+        // Buscar hasta encontrar una coincidencia o un espacio vacío
         while (tabla[pos] != null) {
             if (tabla[pos].activa && tabla[pos].llave.equals(clave))
                 return tabla[pos].valor;
+
             pos = (pos + 1) % capacidad;
         }
         return null;
